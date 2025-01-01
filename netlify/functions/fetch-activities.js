@@ -1,5 +1,5 @@
 // netlify/functions/fetch-activities.js
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
   const { username, start_date, end_date, page = 1 } = event.queryStringParameters; // pageのデフォルト値を1に設定
