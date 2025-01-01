@@ -53,9 +53,8 @@
     </table>
 
     <script>
-        require('dotenv').config();
         document.getElementById("fetch-data").addEventListener("click", async function() {
-            const accessToken = process.env.ANNICT_TOKEN;
+            const accessToken = import.meta.env.ANNICT_TOKEN;
             const username = document.getElementById("username").value;
             const startDate = new Date(document.getElementById("start_date").value);
             const endDate = new Date(document.getElementById("end_date").value);
