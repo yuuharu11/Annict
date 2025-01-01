@@ -1,9 +1,17 @@
 // netlify/functions/fetch-activities.js
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 exports.handler = async function(event, context) {
-  const { username, start_date, end_date, page } = event.queryStringParameters;
+  const { username, start_date, end_date, page = 1 } = event.queryStringParameters; // pageのデフォルト値を1に設定
   const accessToken = process.env.ANNICT_TOKEN;  // Netlifyの環境変数から取得
+
+  // accessTokenがない場合のエラーハンドリング
+  if (!accessToken) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'ANNICT_TOKEN is required' }),
+    };
+  }
 
   const url = `https://api.annict.com/v1/activities?access_token=${accessToken}&filter_username=${username}&sort_id=desc&fields=action,created_at,work.title,status.kind&per_page=50&page=${page}`;
 
