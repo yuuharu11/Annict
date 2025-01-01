@@ -53,9 +53,7 @@
     </table>
 
     <script>
-        require('dotenv').config();
         document.getElementById("fetch-data").addEventListener("click", async function() {
-            const { accessToken } = process.env;
             const username = document.getElementById("username").value;
             const startDate = new Date(document.getElementById("start_date").value);
             const endDate = new Date(document.getElementById("end_date").value);
@@ -76,7 +74,7 @@
             loadingPopup.style.display = "block"; // 実行中モーダルを表示
 
             while (!flag) {
-                const url = `https://api.annict.com/v1/activities?access_token=${accessToken}&sort_id=desc&filter_username=${username}&fields=action,created_at,work.title,status.kind&per_page=50&page=${page}`;
+                const url = `/api/fetch-activities?username=${username}&start_date=${startDate.toISOString()}&end_date=${endDate.toISOString()}&page=${page}`;
 
                 try {
                     const response = await fetch(url);
@@ -160,7 +158,6 @@
             link.click();
             document.body.removeChild(link);
         });
-        
 
         document.getElementById("clear-data").addEventListener("click", function() {
             const resultsTable = document.getElementById("results-table").querySelector("tbody");
