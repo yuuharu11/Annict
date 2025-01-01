@@ -74,7 +74,7 @@
             loadingPopup.style.display = "block"; // 実行中モーダルを表示
 
             while (!flag) {
-                const url = `/api/fetch-activities?username=${username}&start_date=${startDate.toISOString()}&end_date=${endDate.toISOString()}&page=${page}`;
+                const url = `/.netlify/functions/fetch-activities?username=${username}&start_date=${startDate.toISOString()}&end_date=${endDate.toISOString()}&page=${page}`;
 
                 try {
                     const response = await fetch(url);
